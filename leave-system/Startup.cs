@@ -38,7 +38,7 @@ namespace leave_system
 
             //Repos and interfaces
             services.AddScoped<ILeaveAllocationRepo, LeaveAllocationRepo>();
-            services.AddScoped<ILeaveHistoryRepo, LeaveHistoryRepo>();
+            services.AddScoped<ILeaveRequestRepo, LeaveRequestRepo>();
             services.AddScoped<ILeaveTypeRepo, LeaveTypeRepo>();
 
             services.AddAutoMapper(typeof(Maps));

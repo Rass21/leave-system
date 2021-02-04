@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using leave_system.Data;
 
 namespace leave_system.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210121090955_LeaveHistory_To_LeaveRequest")]
+    partial class LeaveHistory_To_LeaveRequest
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -268,9 +270,6 @@ namespace leave_system.Data.Migrations
 
                     b.Property<string>("ApprovedById")
                         .HasColumnType("nvarchar(450)");
-
-                    b.Property<bool>("Cancelled")
-                        .HasColumnType("bit");
 
                     b.Property<DateTime>("DateActioned")
                         .HasColumnType("datetime2");

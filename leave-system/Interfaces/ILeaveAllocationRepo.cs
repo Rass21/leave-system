@@ -9,6 +9,7 @@ namespace leave_system.Interfaces
     public interface ILeaveAllocationRepo : IRepoBase<LeaveAllocation>
     {
         bool CheckAllocation(int leavetypeId, string employeeId);
-        ICollection<LeaveAllocation> GetLeaveAllocationsByEmployee(string id);
+        ICollection<LeaveAllocation> GetLeaveAllocationsByEmployee(string employeeid);
+        LeaveAllocation GetLeaveAllocationsByEmployeeAndType(string employeeid, int leavetypeid);
     }
 }

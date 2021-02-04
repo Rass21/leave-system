@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace leave_system.Interfaces
 {
-    public interface ILeaveHistoryRepo : IRepoBase<LeaveHistory>
+    public interface ILeaveRequestRepo : IRepoBase<LeaveRequest>
     {
-
+        ICollection<LeaveRequest> GetLeaveRequestsByEmployeeId(string employeeid);
     }
 }

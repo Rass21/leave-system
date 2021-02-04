@@ -41,12 +41,19 @@ namespace leave_system
                     UserName = "employee@localhost.com",
                     Email = "employee@localhost.com"
                 };
+                var user1 = new Employee
+                {
+                    UserName = "employee@test.com",
+                    Email = "employee@test.com"
+                };
 
                 var result = userManager.CreateAsync(user, "P@ssword1").Result;
+                var result2 = userManager.CreateAsync(user1, "P@ssword1").Result;
 
-                if (result.Succeeded)
+                if (result.Succeeded && result2.Succeeded)
                 {
                     userManager.AddToRoleAsync(user, "Employee").Wait();
+                    userManager.AddToRoleAsync(user1, "Employee").Wait();
                 }
             }
         }

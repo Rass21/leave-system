@@ -1,0 +1,50 @@
+﻿@model leave_system.Models.LeaveRequestViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Reviewing request for: @Model.RequestingEmployee.LastName @Model.RequestingEmployee.FirstName</h1>
+    <h4>
+        For the period @Model.StartDate to @Model.EndDate
+    </h4>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.RequestingEmployeeId)
+        </dt>
+        <dd class="col-sm-10">
+            @Model.RequestingEmployee.LastName @Model.RequestingEmployee.FirstName
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DateRequested)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DateRequested)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.LeaveType)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.LeaveType.Name)
+        </dd>
+    </dl>
+</div>
+<div>
+    @if (Model.Approved == null)
+    {
+        <a asp-action="ApproveRequest" asp-route-id="@Model.Id" class="btn btn-success">
+            <i class="fa fa-check"></i>Approve
+        </a>
+
+        <a asp-action="RejectRequest" asp-route-id="@Model.Id" class="btn btn-danger">
+            <i class="fa fa-ban"></i>Reject
+        </a>
+    }
+
+    <a asp-action="Index" class="btn btn-outline-secondary">
+        <i class="fa fa-arrow-left"></i>Back to List
+    </a>
+</div>
