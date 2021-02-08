@@ -6,13 +6,7 @@
 
 @foreach (var item in Model.LeaveAllocations)
 {
-<h1>
-    @Html.DisplayFor(modelItem => item.LeaveType.Name)
-</h1>
-<h1>
-    @Html.DisplayFor(modelItem => item.NumberOfDays)
-</h1>
-
+    <h1>@Html.DisplayFor(modelItem => item.LeaveType.Name): <span class="badge bg-secondary">@Html.DisplayFor(modelItem => item.NumberOfDays) Days</span></h1>
 }
 
 <h1>My Leave Request Log</h1>
