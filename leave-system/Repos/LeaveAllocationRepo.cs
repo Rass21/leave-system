@@ -16,10 +16,11 @@ namespace leave_system.Repos
             _db = db;
         }
 
-        public bool CheckAllocation(int leavetypeId, string employeeId)
+        public async Task<bool> CheckAllocation(int leavetypeId, string employeeId)
         {
             var period = DateTime.Now.Year;
-            return FindAll()
+            var leaveAllocation = await FindAll();
+            return leaveAllocation
                 .Where(
                 x => x.EmployeeId == employeeId &&
                 x.LeaveTypeId == leavetypeId &&
@@ -27,67 +28,67 @@ namespace leave_system.Repos
                 .Any();
         }
 
-        public bool Create(LeaveAllocation entity)
+        public async Task<bool> Create(LeaveAllocation entity)
         {
-            _db.Add(entity);
-            return Save();
+            await _db.AddAsync(entity);
+            return await Save();
         }
 
-        public bool Delete(LeaveAllocation entity)
+        public async Task<bool> Delete(LeaveAllocation entity)
         {
             _db.Remove(entity);
-            return Save();
+            return await Save();
         }
 
-        public ICollection<LeaveAllocation> FindAll()
+        public async Task<ICollection<LeaveAllocation>> FindAll()
         {
-            var leaveAllocations = _db.LeaveAllocations
+            var leaveAllocations = await _db.LeaveAllocations
                 .Include(x => x.LeaveType)
-                .ToList();
+                .ToListAsync();
             return leaveAllocations;
         }
 
-        public LeaveAllocation FindById(int id)
+        public async Task<LeaveAllocation> FindById(int id)
         {
-            var leaveAllocation = _db.LeaveAllocations
+            var leaveAllocation = await _db.LeaveAllocations
                 .Include(i => i.LeaveType) //first including objects within the LeaveAllocation class
                 .Include(i => i.Employee)
-                .FirstOrDefault(x => x.Id == id); //and only after do we specify to get the LeaveAllocation by id
+                .FirstOrDefaultAsync(x => x.Id == id); //and only after do we specify to get the LeaveAllocation by id
             return leaveAllocation;
         }
 
-        public ICollection<LeaveAllocation> GetLeaveAllocationsByEmployee(string employeeid)
+        public async Task<ICollection<LeaveAllocation>> GetLeaveAllocationsByEmployee(string employeeid)
         {
             var period = DateTime.Now.Year;
-            return FindAll().
-                Where(x => x.EmployeeId == employeeid && x.Period == period).
-                ToList();
+            var leaveAllocations = await FindAll();
+
+            return leaveAllocations.Where(x => x.EmployeeId == employeeid && x.Period == period).ToList();
         }
 
-        public LeaveAllocation GetLeaveAllocationsByEmployeeAndType(string employeeid, int leavetypeid)
+        public async Task<LeaveAllocation> GetLeaveAllocationsByEmployeeAndType(string employeeid, int leavetypeid)
         {
             var period = DateTime.Now.Year;
-            return FindAll()
-                .FirstOrDefault(x => x.EmployeeId == employeeid && x.Period == period && x.LeaveTypeId == leavetypeid);           
+            var leaveAllocations = await FindAll();
+            return  leaveAllocations.FirstOrDefault(x => x.EmployeeId == employeeid && x.Period == period && x.LeaveTypeId == leavetypeid);           
         }
 
-        public bool isExists(int id)
+        public async Task<bool> isExists(int id)
         {
-            var exists = _db.LeaveAllocations.Any(x => x.Id == id);
+            var exists = await _db.LeaveAllocations.AnyAsync(x => x.Id == id);
 
             return exists;
         }
 
-        public bool Save()
+        public async Task<bool> Save()
         {
-            var changes = _db.SaveChanges();
+            var changes = await _db.SaveChangesAsync();
             return changes > 0;
         }
 
-        public bool Update(LeaveAllocation entity)
+        public async Task<bool> Update(LeaveAllocation entity)
         {
             _db.LeaveAllocations.Update(entity);
-            return Save();
+            return await Save();
         }
     }
 }

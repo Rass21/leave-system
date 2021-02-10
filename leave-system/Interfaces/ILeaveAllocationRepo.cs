@@ -8,8 +8,8 @@ namespace leave_system.Interfaces
 {
     public interface ILeaveAllocationRepo : IRepoBase<LeaveAllocation>
     {
-        bool CheckAllocation(int leavetypeId, string employeeId);
-        ICollection<LeaveAllocation> GetLeaveAllocationsByEmployee(string employeeid);
-        LeaveAllocation GetLeaveAllocationsByEmployeeAndType(string employeeid, int leavetypeid);
+        Task<bool> CheckAllocation(int leavetypeId, string employeeId);
+        Task<ICollection<LeaveAllocation>> GetLeaveAllocationsByEmployee(string employeeid);
+        Task<LeaveAllocation> GetLeaveAllocationsByEmployeeAndType(string employeeid, int leavetypeid);
     }
 }

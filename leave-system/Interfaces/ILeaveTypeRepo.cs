@@ -8,6 +8,6 @@ namespace leave_system.Interfaces
 {
     public interface ILeaveTypeRepo : IRepoBase<LeaveType>
     {
-        ICollection<LeaveType> GetEmployeesByLeaveType(int id);
+        Task<ICollection<LeaveType>> GetEmployeesByLeaveType(int id);
     }
 }

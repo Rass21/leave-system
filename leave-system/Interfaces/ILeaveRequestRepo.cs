@@ -8,6 +8,6 @@ namespace leave_system.Interfaces
 {
     public interface ILeaveRequestRepo : IRepoBase<LeaveRequest>
     {
-        ICollection<LeaveRequest> GetLeaveRequestsByEmployeeId(string employeeid);
+        Task<ICollection<LeaveRequest>> GetLeaveRequestsByEmployeeId(string employeeid);
     }
 }
